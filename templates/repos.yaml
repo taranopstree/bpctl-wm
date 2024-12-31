@@ -1,0 +1,8 @@
+---
+version: api/v1
+kind: BPGitRepo
+metadata:
+  name: ${reponame}
+spec:
+   git_provider: ${git_provider}
+   url: ${url}

@@ -1,0 +1,9 @@
+---
+version: api/v1
+kind: BPService
+metadata:
+  name: ${service}
+spec:
+  build_strategy: EVERY
+  external_name: ${service}-app
+  application: ${application}

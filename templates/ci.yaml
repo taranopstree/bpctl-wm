@@ -1,0 +1,254 @@
+version: api/v1
+kind: BPApplicationServiceEnvJobTemplate
+metadata:
+  service: ${service}
+  application_env : ${application_env}
+spec:
+    job_code: build_job
+    job_step_environment_variables:
+    - order: 0
+      step_code: Workspace-Cleaner-V3
+      step_name: Workspace-Cleaner-V3
+      environment_variables:
+        - key: WORKSPACE
+          value: "/bp/workspace"
+          input_type: text
+          is_required: true
+          default_value: "/bp/workspace"
+          does_default_active: Y
+          is_trigger_time_modify: false
+    - order: 1
+      step_code: CLONING_REPOSITORY
+      step_name: clone_repo
+      environment_variables:
+      - integration: GIT_REPO
+        integration_values:
+          - clone_repo:
+              - key: GIT_REPO
+                value: "$git_repo"
+                is_required: true
+                does_default_active: 'N'
+              - key: GIT_BRANCH
+                value: "$git_branch"
+                is_trigger_time_modify: true
+    - order: 2
+      step_code: Gitleaks-V3
+      step_name: Gitleaks-V3
+      environment_variables:
+        - key: OUTPUT_ARG
+          value: gitleaks.json
+          input_type: text
+          is_required: true
+          default_value: "gitleaks.json"
+          does_default_active: Y
+          is_trigger_time_modify: false
+        - key: VALIDATION_FAILURE_ACTION
+          value: "$gitleaks_failure_action"
+          input_type: select
+          is_required: true
+          default_value: "$gitleaks_failure_action"
+          does_default_active: Y
+          is_trigger_time_modify: false
+          select_dropdown_options: FAILURE,WARNING
+        - key: MI_SERVER_ADDRESS
+          value: https://maturity-insightsdev-api.wm.com
+          input_type: text
+          is_required: true
+          default_value: "https://maturity-insightsdev-api.wm.com"
+          does_default_active: Y
+          is_trigger_time_modify: false
+        - key: APPLICATION_NAME
+          value: "$application"
+          input_type: text
+          is_required: true
+          default_value: "$application"
+          does_default_active: Y
+          is_trigger_time_modify: false
+        - key: ORGANIZATION
+          value: wm
+          input_type: text
+          is_required: true
+          default_value: "wm"
+          does_default_active: Y
+          is_trigger_time_modify: false
+        - key: SOURCE_KEY
+          value: gitleak
+          input_type: text
+          is_required: true
+          default_value: "gitleak"
+          does_default_active: Y
+          is_trigger_time_modify: false
+        - key: REPORT_FILE_PATH
+          value: "null"
+          input_type: text
+          is_required: true
+          default_value: "null"
+          does_default_active: Y
+          is_trigger_time_modify: false
+        - key: SLEEP_DURATION
+          value: 5s
+          input_type: text
+          is_required: true
+          default_value: "5s"
+          does_default_active: Y
+          is_trigger_time_modify: false
+        - key: WORKSPACE
+          value: /bp/workspace
+          input_type: text
+          is_required: true
+          default_value: "/bp/workspace"
+          does_default_active: Y
+          is_trigger_time_modify: false
+        - key: FORMAT_ARG
+          value: json
+          input_type: select
+          is_required: true
+          default_value: "json"
+          does_default_active: Y
+          is_trigger_time_modify: false
+          select_dropdown_options: json
+    - order: 3
+      step_code: SAM_EXECUTION_STEP
+      step_name: SAM Execution Step-v3
+      environment_variables:
+        - key: WORKSPACE
+          value: /bp/workspace
+          input_type: text
+          is_required: true
+          default_value: "/bp/workspace"
+          does_default_active: Y
+          is_trigger_time_modify: false
+        - key: ASSUME_OTHER_ROLE
+          value: "true"
+          input_type: text
+          is_required: true
+          default_value: "true"
+          does_default_active: Y
+          is_trigger_time_modify: false
+        - key: VALIDATION_FAILURE_ACTION
+          value: "$sam_failure_action"
+          input_type: select
+          is_required: true
+          default_value: "$sam_failure_action"
+          does_default_active: Y
+          is_trigger_time_modify: false
+          select_dropdown_options: FAILURE,WARNING
+        - key: AWS_REGION
+          value: "$aws_region"
+          input_type: text
+          is_required: true
+          default_value: "$aws_region"
+          does_default_active: Y
+          is_trigger_time_modify: false
+        - key: ACCOUNT_ID
+          value: "$account_id"
+          input_type: text
+          is_required: true
+          default_value: "$account_id"
+          does_default_active: Y
+          is_trigger_time_modify: false
+        - key: ROLE_NAME
+          value: "$role_name"
+          input_type: text
+          is_required: true
+          default_value: "$role_name"
+          does_default_active: Y
+          is_trigger_time_modify: false
+        - key: ROLE_SESSION_NAME
+          value: "bp-aws-role"
+          input_type: text
+          is_required: true
+          default_value: "bp-aws-role"
+          does_default_active: Y
+          is_trigger_time_modify: false
+        - key: INSTRUCTIONS
+          value: "$instructions"
+          input_type: text
+          is_required: true
+          default_value: "$instructions"
+          does_default_active: Y
+          is_trigger_time_modify: false
+        - key: SAM_DIR_PATH
+          value: "$sam_dir_path"
+          input_type: text
+          is_required: true
+          default_value: "$sam_dir_path"
+          does_default_active: Y
+          is_trigger_time_modify: false
+    - order: 4
+      step_code: TEAMS_NOTIFY
+      step_name: teams notify
+      environment_variables:
+        - key: BODY
+          value: "$ms_hook_url"
+          input_type: text
+          is_required: true
+          default_value: "$ms_hook_url"
+          does_default_active: Y
+          is_trigger_time_modify: false
+        # - key: COMPONENT_NAME
+        #   value: "$COMPONENT_NAME"
+        #   input_type: text
+        #   is_required: true
+        #   default_value: "$COMPONENT_NAME"
+        #   does_default_active: Y
+        #   is_trigger_time_modify: false
+        # - key: GLOBAL_TASK_ID
+        #   value: "$GLOBAL_TASK_ID"
+        #   input_type: text
+        #   is_required: true
+        #   default_value: "$GLOBAL_TASK_ID"
+        #   does_default_active: Y
+        #   is_trigger_time_modify: false
+        - key: BUILD_IMAGE_NAME
+          value: BUILD_IMAGE_NAME
+          input_type: text
+          is_required: true
+          default_value: "BUILD_IMAGE_NAME"
+          does_default_active: Y
+          is_trigger_time_modify: false
+        # - key: PROJECT_ENV_NAME
+        #   value: "$PROJECT_ENV_NAME"
+        #   input_type: text
+        #   is_required: true
+        #   default_value: "$PROJECT_ENV_NAME"
+        #   does_default_active: Y
+        #   is_trigger_time_modify: false
+        - key: BUILD_REPOSITORY_TAG
+          value: BUILD_REPOSITORY_TAG
+          input_type: text
+          is_required: true
+          default_value: "BUILD_REPOSITORY_TAG"
+          does_default_active: Y
+          is_trigger_time_modify: false
+        # - key: LAST_ACTIVITY_SUB_TASK_STATUS
+        #   value: "$LAST_ACTIVITY_SUB_TASK_STATUS"
+        #   input_type: text
+        #   is_required: true
+        #   default_value: "$LAST_ACTIVITY_SUB_TASK_STATUS"
+        #   does_default_active: Y
+        #   is_trigger_time_modify: false
+        - key: MS_HOOK_URL
+          value: "$ms_hook_url"
+          input_type: text
+          is_required: true
+          default_value: "$ms_hook_url"
+          does_default_active: Y
+          is_trigger_time_modify: false
+        - key: DNS_URI
+          value: "$dns_url"
+          input_type: text
+          is_required: true
+          default_value: "$dns_url"
+          does_default_active: Y
+          is_trigger_time_modify: false
+        - key: APPLICATION_NAME
+          value: "$application"
+          input_type: text
+          is_required: true
+          default_value: "$application"
+          does_default_active: Y
+          is_trigger_time_modify: false
+        - key: on_run_failure
+          value: "true"
+          isCustomVar: true    

@@ -1,0 +1,4 @@
+reponame,git_provider,url
+OT-Microservice,github,https://github.com/opstree/OT-Microservices
+ot-micro-salary,github,https://github.com/opstree/salary.git
+s3ha,github,https://github.com/opstree/spring3hibernate

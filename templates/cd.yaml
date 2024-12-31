@@ -1,0 +1,41 @@
+---
+version: api/v1
+kind: BPServiceCD
+metadata:
+  name: ${service}-cd
+  application: ${application}
+  environment_master: ${environment_master}
+  service: ${service}
+spec:
+  application_env: ${application_env}
+  service_name: ${service}
+  image_name: ${service}/${environment_master}/${application_env}
+  deployment_name: ${service}-${application_env}-dep
+  desired_replication: ${desired_replication}
+  requests_memory_quota: ${requests_memory_quota}
+  requests_cpu_quota: ${requests_cpu_quota}
+  limits_cpu_quota: ${limits_cpu_quota}
+  limits_memory_quota: ${limits_memory_quota}
+  env_cd_configmap: [ ]
+  env_cd_secret: [ ]
+  env_cd_pvc_variable: [ ]
+  entrypoint:
+  env_cd_deploy_variable: [ ]
+  env_cd_deployment_strategy:
+    max_surge: 100%
+    max_unavailable: 5%
+    minimum_ready: 0
+    progress_deadline: 600
+    termination_grace_period: 30
+    revision_history_limit: 10
+    release_template:
+  labels: [ ]
+  annotations: [ ]
+  env_cd_hook: [ ]
+  env_cd_access_detail:
+    - name: ${service}-${application_env}-svc
+      target_port: 8080
+      protocol: TCP
+      port: 8080
+      access_level: PRIVATE
+      expose_path:

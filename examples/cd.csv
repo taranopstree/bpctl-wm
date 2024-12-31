@@ -1,0 +1,5 @@
+service,application,environment_master,application_env,desired_replication,requests_memory_quota,requests_cpu_quota,limits_cpu_quota,limits_memory_quota
+app1,ot-demo-ms,dev,dev,1,100,100,100,100
+app1,ot-demo-ms,qa,qa,1,100,100,100,100
+app2,ot-demo-ms,dev,dev,1,100,100,100,100
+app2,ot-demo-ms,qa,qa,1,100,100,100,100

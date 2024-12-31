@@ -1,0 +1,9 @@
+service,application,application_env,manual_build,manual_deploy,application_job_template,dev_access,qa_access,devops_access,environment_master
+app1,ot-demo-ms,dev,true,true,ms-basic-ci-v2,true,false,true,dev
+app1,ot-demo-ms,dev2,true,true,ms-basic-ci-v2,true,false,true,dev
+app1,ot-demo-ms,dev-main,true,true,devsecops-python-ci-v2,true,false,true,dev
+app1,ot-demo-ms,qa,true,true,ms-basic-ci-v2,false,true,true,qa
+app1,ot-demo-ms,uat-main,true,true,ms-basic-ci-v2,false,false,true,uat
+app1,ot-demo-ms,prod-main,true,true,ms-basic-ci-v2,false,false,true,prod
+app2,ot-demo-ms,dev,true,true,ms-basic-ci-v2,true,false,true,dev
+app2,ot-demo-ms,qa,true,true,ms-basic-ci-v2,false,true,true,qa

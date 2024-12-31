@@ -1,0 +1,7 @@
+application,service,environment_master,git_repo,dockerfile,context,branch_name,application_env
+ot-demo-ms,app1,dev,ot-micro-salary,Dockerfile,.,main,dev
+ot-demo-ms,app1,dev,ot-micro-salary,Dockerfile,.,main,dev2
+ot-demo-ms,app1,dev,ot-micro-salary,Dockerfile,.,main,dev-main
+ot-demo-ms,app1,qa,ot-micro-salary,Dockerfile,.,main,qa
+ot-demo-ms,app2,dev,ot-micro-salary,Dockerfile,.,main,dev
+ot-demo-ms,app2,qa,ot-micro-salary,Dockerfile,.,main,qa

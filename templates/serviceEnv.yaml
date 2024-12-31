@@ -1,0 +1,20 @@
+---
+version: api/v1
+kind: BPServiceEnv
+metadata:
+  name: ${service}-${application_env}-env
+  service: ${service}
+  application: ${application}
+spec:
+  application_env: ${application_env}
+  manual_build: ${manual_build}
+  manual_deploy: ${manual_deploy}
+  application_job_template: ${application_job_template}
+  env_role_access:
+    - application_role: DEV
+      access: ${dev_access}
+    - application_role: QA
+      access: ${qa_access}
+    - application_role: DEVOPS
+      access: ${devops_access}
+  environment_master: ${environment_master}
